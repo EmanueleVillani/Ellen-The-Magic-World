@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+
+       
         movHor = Input.GetAxis("Horizontal");
         isMoving = (movHor != 0);
         isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
+        flip(movHor);
     }
 
     private void FixedUpdate()
@@ -69,6 +70,19 @@ public class Player : MonoBehaviour
     {
         if (!isGrounded) return;
         rb.velocity = Vector2.up * jumpForce;
+    }
+    public void flip(float _xValue)
+    {
+        Vector3 theScale = transform.localScale;
+
+        if(_xValue < 0)
+        {
+            theScale.x = Mathf.Abs(theScale.x)*-1;
+        }else if (_xValue > 0)
+        {
+            theScale.x = Mathf.Abs(theScale.x);
+        }
+        transform.localScale = theScale;
     }
    
 
