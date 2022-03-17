@@ -56,5 +56,21 @@ public class Enemy : MonoBehaviour
     void GetKilled()
     {
         gameObject.SetActive(false);
+
+        Destroy(gameObject);
+    }
+
+     void OnTriggerEnter2D(Collider2D collision)
+    {
+        GetKilled();
+    }
+
+     void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player.obj.GetDamage();
+            Debug.Log("MOcc a Mamt");
+        }
     }
 }

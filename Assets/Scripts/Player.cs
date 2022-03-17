@@ -86,6 +86,14 @@ public class Player : MonoBehaviour
         }
         transform.localScale = theScale;
     }
-   
+   public void GetDamage()
+    {
+        lives--;
+        if(lives < 0)
+        {
+            this.gameObject.SetActive(false);
+           // Destroy(gameObject);
+        }
+    }
 
 }
