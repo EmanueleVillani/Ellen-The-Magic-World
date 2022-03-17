@@ -95,5 +95,11 @@ public class Player : MonoBehaviour
            // Destroy(gameObject);
         }
     }
+    public void AddLive()
+    {
+        lives++;
+        if (lives > Game.obj.maxLives)
+            lives = Game.obj.maxLives;
+    }
 
 }
