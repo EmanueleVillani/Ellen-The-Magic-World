@@ -48,9 +48,11 @@ public class Player : MonoBehaviour
         isMoving = (movHor != 0);
         isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             Jump();
-        }
+
+            ani.SetBool("isMoving", isMoving);
+            ani.SetBool("isGrounded", isGrounded);
+        
         flip(movHor);
     }
 
