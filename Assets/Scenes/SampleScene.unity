@@ -11131,6 +11131,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3908529692780121671, guid: 3225ee34f3f8847f7b568b5ec008bdca, type: 3}
+      propertyPath: flashTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3908529692780121671, guid: 3225ee34f3f8847f7b568b5ec008bdca, type: 3}
       propertyPath: jumpForce
       value: 6
       objectReference: {fileID: 0}

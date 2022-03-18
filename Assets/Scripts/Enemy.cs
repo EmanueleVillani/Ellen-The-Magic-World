@@ -71,6 +71,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //AudioManager.obj.PlayHeroHit();
+           
             Player.obj.GetDamage();
             Debug.Log("MOcc a Mamt");
         }

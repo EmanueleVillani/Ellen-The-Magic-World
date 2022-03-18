@@ -7,9 +7,9 @@ public class FxManager : MonoBehaviour
     public static FxManager obj;
     public GameObject pop;
 
-     void Awake()
+    void Awake()
     {
-        obj = this; 
+        obj = this;
     }
 
     public void ShowPop(Vector3 pos)
@@ -17,7 +17,7 @@ public class FxManager : MonoBehaviour
         pop.gameObject.GetComponent<Pop>().Show(pos);
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         obj = null;
     }

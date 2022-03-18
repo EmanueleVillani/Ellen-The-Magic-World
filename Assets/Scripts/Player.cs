@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player obj;
-
+    Color original;
+    public float flashTime ;
     public int lives = 3;
     public bool isGrounded = false;
     public bool isMoving = false;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+       
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         spr = GetComponent<SpriteRenderer>();
@@ -48,21 +50,9 @@ public class Player : MonoBehaviour
         isMoving = (movHor != 0);
         isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
         if (Input.GetKeyDown(KeyCode.Space))
-            Jump();
-
-        if (isImmune)
-        {
-            spr.enabled = !enabled;
-            immuneTimeCnt -= Time.deltaTime;
-            if (immuneTimeCnt < 0)
-            {
-                isImmune = false;
-                spr.enabled = true;
-            }
-        }
-        
             
-        
+        Jump();
+       
 
         ani.SetBool("isMoving", isMoving);
             ani.SetBool("isGrounded", isGrounded);
@@ -70,11 +60,7 @@ public class Player : MonoBehaviour
         flip(movHor);
 
     }
-    private void GoImmune()
-    {
-        isImmune = true;
-        immuneTimeCnt = immuneTime;
-    }
+    
     private void FixedUpdate()
     {
       
@@ -111,8 +97,10 @@ public class Player : MonoBehaviour
     {
         
         lives--;
+        FlashStart();
+        
         AudioManager.obj.PlayHeroHit();
-        GoImmune();
+       
         if (lives < 0)
            
         {
@@ -127,4 +115,18 @@ public class Player : MonoBehaviour
             lives = Game.obj.maxLives;
     }
 
+    public void FlashStart()
+    {
+        spr.enabled = false;
+
+        Invoke("FlashStop", flashTime);
+
+    }
+    public void FlashStop()
+    {
+
+        spr.enabled = true;
+    }
+
 }
+
