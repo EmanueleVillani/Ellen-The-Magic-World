@@ -11,8 +11,11 @@ public class Coins : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            AudioManager.obj.PlayCoin();
+            Pop.obj.Show(transform.position);
             Game.obj.AddScore(scoreGive);
             gameObject.SetActive(false);
+           
         }
     }
 }

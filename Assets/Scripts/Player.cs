@@ -43,19 +43,38 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-       
+
         movHor = Input.GetAxis("Horizontal");
         isMoving = (movHor != 0);
         isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
 
-            ani.SetBool("isMoving", isMoving);
+        if (isImmune)
+        {
+            spr.enabled = !enabled;
+            immuneTimeCnt -= Time.deltaTime;
+            if (immuneTimeCnt < 0)
+            {
+                isImmune = false;
+                spr.enabled = true;
+            }
+        }
+        
+            
+        
+
+        ani.SetBool("isMoving", isMoving);
             ani.SetBool("isGrounded", isGrounded);
         
         flip(movHor);
-    }
 
+    }
+    private void GoImmune()
+    {
+        isImmune = true;
+        immuneTimeCnt = immuneTime;
+    }
     private void FixedUpdate()
     {
       
@@ -70,8 +89,10 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        
         if (!isGrounded) return;
         rb.velocity = Vector2.up * jumpForce;
+        AudioManager.obj.PlayJump();
     }
     public void flip(float _xValue)
     {
@@ -88,8 +109,12 @@ public class Player : MonoBehaviour
     }
    public void GetDamage()
     {
+        
         lives--;
-        if(lives < 0)
+        AudioManager.obj.PlayHeroHit();
+        GoImmune();
+        if (lives < 0)
+           
         {
             this.gameObject.SetActive(false);
            // Destroy(gameObject);
