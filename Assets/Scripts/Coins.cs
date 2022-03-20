@@ -11,6 +11,7 @@ public class Coins : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            UiManager.obj.UpdateScore();
             AudioManager.obj.PlayCoin();
             Pop.obj.Show(transform.position);
             Game.obj.AddScore(scoreGive);

@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     public int maxLives = 3;
     public bool gamePaused = false;
     public int score = 0;
+   
 
 
     void Awake()
@@ -20,11 +21,13 @@ public class Game : MonoBehaviour
     void Start()
     {
         gamePaused = false;
+        UiManager.obj.StartGame();
     }
     
   public void AddScore(int scoreGive)
     {
         score += scoreGive;
+        UiManager.obj.UpdateLives();
     }
 
    

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player obj;
-    Color original;
+    
     public float flashTime ;
     public int lives = 3;
     public bool isGrounded = false;
@@ -44,7 +44,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Game.obj.gamePaused)
+        {
+            movHor = 0f;
+            return;
+        }
 
         movHor = Input.GetAxis("Horizontal");
         isMoving = (movHor != 0);
@@ -100,6 +104,7 @@ public class Player : MonoBehaviour
         FlashStart();
         
         AudioManager.obj.PlayHeroHit();
+        UiManager.obj.UpdateLives();
        
         if (lives < 0)
            
@@ -113,6 +118,7 @@ public class Player : MonoBehaviour
         lives++;
         if (lives > Game.obj.maxLives)
             lives = Game.obj.maxLives;
+        UiManager.obj.UpdateLives();
     }
 
     public void FlashStart()
